@@ -8,6 +8,6 @@ time=$(date +'%Y%m%d-%H%M%S')
 # loop through all the tables and back them up
 echo "list" | sudo hbase shell -n | sed -e '1,/seconds/ d' |
 while IFS='' read -r line || [[ -n "$line" ]]; do
-    [ -n "$line" ] && sudo hbase snapshot create -n "${time}_${line}" -t "${line}" && echo "Backup created: ${time}_${line}" sudo hbase snapshot export -snapshot "${time}_${line}" -copy-to s3://rama.backup/hbase-backup -mappers 2
+    [ -n "$line" ] && sudo hbase snapshot create -n "${time}_${line}" -t "${line}" && echo "Backup created: ${time}_${line}" && sudo hbase snapshot export -snapshot "${time}_${line}" -copy-to s3://rama.backup/hbase-backup -mappers 2
 done
 
